@@ -160,7 +160,7 @@ __Double Pointer__
 __Recursion__
 1. Similar to double pointer.
 2. but recursively call `reverse` function to perform 'flip' and update `cur`
-3. in this, `cur` becomes `temp` when call reverse function 
+3. in this, `cur` becomes `temp` when call reverse function \
 [206: reverse a list](https://leetcode.com/problems/reverse-linked-list/description/)
 #### Solution
 ``` ccp
@@ -188,6 +188,8 @@ public:
     }
 };
 ```
+
+Time Complexity: O(n)
 
 ``` ccp
 //recursion
