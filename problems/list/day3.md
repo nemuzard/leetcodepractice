@@ -151,9 +151,60 @@ public:
 Time Complexity: O(n)
 ### 206
 **Idea**
+__Double Pointer__
+1. define pre and cur, cur init to `head` and pre is the `NULL` pointer
+2. we will "flip" cur and pre, but need a `temp` to store `cur->next` before we actual flip pre and cur to make sure we are not losing reference
+3. after flipped, we update cur to temp, which is `cur->next`
+4. we should stop when `cur == NULL` and now, `pre` becomes our new head of the reversed list
 
-[]()
+__Recursion__
+1. Similar to double pointer.
+2. but recursively call `reverse` function to perform 'flip' and update `cur`
+3. in this, `cur` becomes `temp` when call reverse function 
+[206: reverse a list](https://leetcode.com/problems/reverse-linked-list/description/)
 #### Solution
 ``` ccp
+// Double Pointer
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = NULL; 
+        ListNode* curr = head;
+        ListNode* temp;
 
+        while(curr){
+            // store cur.next
+            temp = curr->next;
+            //reverse pointer
+            curr->next = prev;
+            prev = curr;
+            // equ to move next
+            // if curr == null, means we finish
+            curr = temp;
+        }
+        
+        return prev;
+
+    }
+};
+```
+
+``` ccp
+//recursion
+class Solution {
+public:
+    ListNode* reverse(ListNode* pre, ListNode* cur){
+        if(cur == NULL) return pre;
+        ListNode* temp = cur;
+        cur->next = pre;
+
+        return reverse(cur,temp);
+    }
+    ListNode* reverseList(ListNode* head) {
+        
+
+        return reverse(NULL,head);
+
+    }
+};
 ```
