@@ -36,7 +36,7 @@ public:
             // save 3
             ListNode* third= cur->next->next->next;
         
-            // dummy's pointer points to 2
+            // set dummy's next node  ==  2
             cur->next = first->next;
             // 2 --> 1/temp
             cur->next->next = first;
@@ -53,24 +53,53 @@ public:
 ```
 **Always remember to save the reference**
 **Time Complexity:** O(n)
+*A quick note*: why use dummy node? -- uniform the entire operation, so we dont have to check if the node is head
 
 
-
-#### 19.
+#### 19. Remove Nth Node From End of List
 **Description**
 
-
+[19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
 **Idea**
+1. two pointers, one move ahead n steps and then move two pointers at the same time
+2. then let fast move one additional steps in order to make slow points to the previous node of the target.
 
 
 **Solution**
 ```ccp
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        
+        if(n<0){
+            return head;
+        }
 
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* fast = dummy;
+        ListNode* slow = dummy;
+
+        while(n-- && fast!=NULL){
+            fast = fast->next;
+        }
+        fast = fast->next;
+
+        while(fast!=NULL){
+            slow = slow->next;
+            fast = fast->next;
+        }
+        slow->next = slow->next->next;
+        // cannot return head, becasue if only one element, head is still unchanged 
+        return dummy->next;
+
+    }
+};
 
 ```
 
 
-**Time Complexity:**
+**Time Complexity:** O(n)
 
 
 
