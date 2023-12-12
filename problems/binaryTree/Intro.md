@@ -51,3 +51,21 @@ Depth-First Traversal
 - Preorder Traversal: Mid - left - right
 - Inorder Traversal: left - mid - right
 - Postorder Traversal: left - right - mid
+
+Key Points for Recursion
+1. define parameters and return value
+```ccp
+void traversal(TreeNode* cur, vector<int>& vec)
+```
+2. define stop condition
+```ccp
+if (cur == NULL) return;
+```
+3. determine the logic of the single level
+```ccp
+//example for preorder
+vec.push_back(cur->val);    // right 
+traversal(cur->left, vec);  // left 
+traversal(cur->right, vec); // right 
+```
+
