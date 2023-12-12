@@ -208,15 +208,7 @@ Do not modify the linked list.
 
 **Solution**
 
-'''ccp
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+```ccp
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
@@ -242,7 +234,7 @@ public:
         return NULL; 
     }
 };
-'''
+```
 
 
 **Time Complexity:**O(n)
