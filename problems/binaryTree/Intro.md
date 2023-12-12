@@ -1,0 +1,53 @@
+## Binary Tree
+**Definition**
+```ccp
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode(int x): val(x), left(NULL), right(NULL) {}
+};
+
+```
+### Types
+Full Binary Tree
+1. Number of nodes = k**2 - 1, where k = depth
+2. Every node has either 0 or 2 children but not 1 child.
+3. Every level of the tree is completely filled, except for the last level
+4. from left to right 
+
+Complete Binary Tree
+1. Every level is _completely filled_, except for the last level (left to right)
+2. Often used in binary heap data structure
+3. A _full binary tree_ must also a complete binary tree
+
+Binary Search Tree
+1. Time complexity of searching a specific node is log n
+2. all left nodes < mid <= all right nodes, and each left and right subtree also satisfy this rule
+
+Balanced Binary Search Tree/ Adelson-Velsky and Landis Tree(AVL)
+1. Good for search
+2. Either an empty tree or the absolute difference of the height of its left and right subtrees not greater than 1
+3. Both left and right subtrees are also balanced
+4. In cpp, `map`, `set`, `multimap`, `multiset` are implemented by balanced search tree --> so the time complexity of add and remove is log N \
+_（Note: `unordered_set`, `unordered_map`, `unordered_set` use hash map）_
+```ccp
+       a    
+    /     \
+   b       c
+ /  \     /  \
+d    e   f    g
+
+Array: [a,b,c,d,e,f,g]
+```
+> if the index of the parent node is i, then its left child is `i*2+1` and right child is `i*2+2`
+
+Breadth-First Traversal
+- Use queue structure
+- Level order traversal (iterative approach)
+- 
+Depth-First Traversal 
+- use stack/or recursion data structure (iterative/recursive)
+- Preorder Traversal: Mid - left - right
+- Inorder Traversal: left - mid - right
+- Postorder Traversal: left - right - mid
