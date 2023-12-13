@@ -1,3 +1,83 @@
+### 102.  Binary Tree Level Order Traversal
+Link: [102.  Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
+**Idea**
+- init a 2d vec,
+- push current node's value to the vector
+- each recursive call will update depth + 1
+- recursively call the function and update cur to cur->right and cur->left
+**Notice**: cannot update depth inside if statement, it will not be updated when call recursion
+  
+**Solution**
+```ccp
+class Solution {
+public:
+    void order(TreeNode* cur, vector<vector<int>>& result, int depth){
+        if(cur == nullptr) return;
+        if(result.size() == depth){
+            result.push_back(vector<int>());
+        } 
+        result[depth].push_back(cur->val);
+        order(cur->left,result,depth+1);
+        order(cur->right,result,depth+1);
+
+
+    }
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        int depth = 0;
+        vector<vector<int>> res;
+        order(root,res,depth);
+        return res;
+    }
+};
+```
+
+Time Complexity: O(n)
+
+### 107. Binary Tree Level Order Traversal II
+Link: []()
+
+**Idea**
+1. init a queue to store treenode and a 2d vec to store result
+2. each node represents one level of the tree,
+3. while the queue is not empty, init a 1d vec to store vals at each level.
+4. push val to the 1d vec and if the current node has a left or right node, push to the queue
+5. after finishing the while loop, reverse the result
+   
+
+**Solution**
+
+```ccp
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        queue<TreeNode*> que;
+        if (root!=NULL) que.push(root);
+
+        vector<vector<int>> result;
+
+        while(!que.empty()){
+            vector<int> vec;
+            int size = que.size();
+            for(int i = 0; i<size; i++){
+                TreeNode* t = que.front();
+                que.pop();
+                vec.push_back(t->val);
+                if(t->left) que.push(t->left);
+                if(t->right) que.push(t->right);
+            }
+            result.push_back(vec);
+        }
+        reverse(result.begin(),result.end());
+
+        return result;
+    }
+
+        
+};
+
+```
+
 ### 226. Invert Binary Tree
 Link: [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/description/)
 ```ccp
