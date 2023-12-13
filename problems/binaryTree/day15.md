@@ -67,7 +67,8 @@ Link:[ 101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/submiss
 1. if root is null --> is symmetric
 2. at each level we compare left.right and right.left and left.left and right.right
 3. if both left and right are null, return true
-4. if their values are not equal or one of them is null, then return false 
+4. if their values are not equal or one of them is null, then return false
+
 **Solution**
 ```ccp
 class Solution {
