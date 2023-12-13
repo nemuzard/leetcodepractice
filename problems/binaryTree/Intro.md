@@ -42,10 +42,14 @@ Array: [a,b,c,d,e,f,g]
 ```
 > if the index of the parent node is i, then its left child is `i*2+1` and right child is `i*2+2`
 
-Breadth-First Traversal
+[Breadth-First Traversal](https://www.youtube.com/watch?v=oDqjPvD54Ss)
 - Use queue structure
 - Level order traversal (iterative approach)
-- 
+- O(V+E)
+- Useful for finding the shortest path on unweighted graphs
+- Two categories: `visited` and `not visited`
+- starts at some arbitrary node and explores the neighbor nodes first, before moving to the next level neighbors
+  
 Depth-First Traversal 
 - use stack/or recursion data structure (iterative/recursive)
 - Preorder Traversal: Mid - left - right
