@@ -96,5 +96,34 @@ public:
 };
 ```
 
+### 404. Sum of Left Leaves
+Link: [404. Sum of Left Leaves](https://leetcode.com/problems/sum-of-left-leaves/description/)
+
+**Idea**
+- key point is the left leaf condition: `root->left && !root->left->left && !root->left->right`
+- only parent if a node is a left leaf.
+- for each root->left and root->right we have to reach the left node and then calculate the sum
+
+**Solution**
+
+```ccp
+class Solution {
+public:
+    int sumOfLeftLeaves(TreeNode* root) {
+        if(root==NULL) return 0;
+        int left = sumOfLeftLeaves(root->left);
+        
+        if(root->left==NULL && root->right==NULL) return 0;
+        //left node
+        if(root->left!=NULL && root->left->left==NULL && root->left->right==NULL){
+            left = root->left->val;
+        }
+        int right_left = sumOfLeftLeaves(root->right);
+        int sum = left + right_left;
+        return sum;
+
+    }
+};
+```
 
 
