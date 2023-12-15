@@ -42,5 +42,59 @@ public:
     }
 };
 ```
+### 257. Binary Tree Paths
+Link: [257. Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/description/)
+
+**Idea**
+
+```ccp
+input: vector<int>& str
+       TreeNode* cur
+       vector<string>& res 
+```
+- traverse the tree path by path, when arrives at the leaf node, it will finish other recursive call which then will step back
+- construct the string after hitting the leaf
+
+**Solution**
+```ccp
+class Solution {
+public:
+    void traversal(TreeNode* cur, vector<int>& path, vector<string>& result){
+        // stop condition 
+        if(cur==NULL) return;
+        // mid 
+        path.push_back(cur->val);
+        // finished adding a single path
+        if(cur->left==NULL && cur->right==NULL){
+            string s = "";
+            for(int i=0;i<path.size()-1;i++){
+                s += to_string(path[i]);
+                if(i<path.size()-1){
+                    s+="->";
+                }
+            }
+            s+=to_string(path[path.size()-1]);
+            result.push_back(s);
+        }
+        if(cur->left){
+            traversal(cur->left,path,result);
+            path.pop_back();
+        }
+        if(cur->right){
+            traversal(cur->right,path,result);
+            path.pop_back();
+        }
+        
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> res;
+        vector<int> path;
+        if(root==NULL) return res;
+        traversal(root,path,res);
+        return res;
+    }
+};
+```
+
 
 
