@@ -3,7 +3,7 @@
   - Height of a Node: The height of a node in a binary tree is the number of edges on the longest path _from the node to a leaf. A leaf node has a height of 0._
   - Height of a Tree: The height of the tree is the height of its root node. This is the longest path from the root to any leaf.
 - Need to use **DFS** or **PostOrder Traversal**
-  - why? -- because binary tree has recursive order, if we want to know the height of the tree, we should know the height of its left subtree and right subtree, and find max+1 --> this add 1 is where we put the mid to the end which is **postorder**
+  - why? -- Because binary tree has recursive order, if we want to know the height of the tree, we should know the height of its left subtree and right subtree, and find max+1 --> this add 1 is where we put the mid to the end which is **postorder**
 - `depth `
   - The depth of a node in a binary tree is defined as the number of edges from the root node to the given node。 It is essentially the "level" at which the node exists in the tree.
   - Depth is Root-Dependent: Since depth is measured from the root downwards, you need to start at the root and work your way down the tree (hence preorder traversal).   
@@ -53,7 +53,8 @@ input: vector<int>& str
        vector<string>& res 
 ```
 - traverse the tree path by path, when arrives at the leaf node, it will finish other recursive call which then will step back
-- construct the string after hitting the leaf
+- construct the string after hitting the leaf which is cur->left and cur->right both are NULL
+  - add the path to our result ( but need to do some work on path to satisfy format requirements  
 
 **Solution**
 ```ccp
@@ -107,13 +108,14 @@ Link: [404. Sum of Left Leaves](https://leetcode.com/problems/sum-of-left-leaves
 **Solution**
 
 ```ccp
+// postorder 
 class Solution {
 public:
     int sumOfLeftLeaves(TreeNode* root) {
-        if(root==NULL) return 0;
+        if(root==NULL) return 0; // if left node is null then the sum of left node must be 0
         int left = sumOfLeftLeaves(root->left);
         
-        if(root->left==NULL && root->right==NULL) return 0;
+        if(root->left==NULL && root->right==NULL) return 0; // for each "root" we collect its left leaf, so we do not want leaves to be a "root" since they do not have any children so return 0 
         //left node
         if(root->left!=NULL && root->left->left==NULL && root->left->right==NULL){
             left = root->left->val;
