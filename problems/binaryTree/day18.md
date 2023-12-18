@@ -214,9 +214,9 @@ Time Complexity: O(n)
 In the worst case of 112, still have to visit all nodes. 
 
 
-### 106 Construct Binary Tree from Inorder and Postorder Traversal & 105
+### 106 Construct Binary Tree from Inorder and Postorder Traversal & 105. Construct Binary Tree from Preorder and Inorder Traversal
 Link 106: [Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) \
-Link 105: []()
+Link 105: [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/description/)
 
 **Idea**
 - The last element of the postorder array will tell you the `root` node
