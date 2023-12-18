@@ -87,8 +87,8 @@ Time Complexity: O(n)
 
 
 ### 112 & 113
-Link:[112 Path Sum](https://leetcode.com/problems/path-sum/) \
-     [113 Path Sum 2](https://leetcode.com/problems/path-sum-ii/)
+Link 112: [Path Sum](https://leetcode.com/problems/path-sum/) \
+Link 113: [Path Sum 2](https://leetcode.com/problems/path-sum-ii/)
 
 **Idea**
 - pass targetSum as `count` to our function, each time we encounter a node, we minus the node val
@@ -214,17 +214,81 @@ Time Complexity: O(n)
 In the worst case of 112, still have to visit all nodes. 
 
 
-### 106 & 105
-Link:[]()
+### 106 Construct Binary Tree from Inorder and Postorder Traversal & 105
+Link 106: [Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) \
+Link 105: []()
 
 **Idea**
-
+- The last element of the postorder array will tell you the `root` node
+- according to the `root`, on the inorder array, the _left_ of `root` is the left subtree, and _right_ of `root` is the right subtree
+- cut the postorder and inorder array according to left and right
+- Key point is to use the size of the left subtree to cut postorder
+- similar logic can be used in inorder & preorder 
 
 **Solution**
 
 ```ccp
+// 116
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
 
+        if(postorder.size()==0) return NULL;
+
+        int rootval = postorder[postorder.size()-1];
+
+        TreeNode* root = new TreeNode(rootval);
+        if(postorder.size()==1) return root;
+
+        int index = 0;
+        while(inorder[index]!=rootval){
+            index++;
+        }
+        // from 0 to index not include index
+        vector<int> left_inorder(inorder.begin(), inorder.begin()+index);
+
+        vector<int> right_inorder(inorder.begin()+index+1,inorder.end());
+
+
+        vector<int> left_postorder(postorder.begin(),postorder.begin()+index);
+        vector<int> right_postorder(postorder.begin()+index,postorder.end()-1);
+
+        root->left = buildTree(left_inorder,left_postorder);
+        root->right = buildTree(right_inorder, right_postorder);
+
+        return root;
+
+
+    }
+};
+
+// 105
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        if(preorder.size()==0) return NULL;
+
+        int rootval = preorder[0];
+
+        TreeNode* root = new TreeNode(rootval);
+
+        if(preorder.size()==1) return root;
+        int index = 0;
+        while(inorder[index]!= rootval) index++;
+
+        vector<int> left_inorder(inorder.begin(),inorder.begin()+index);
+
+        vector<int> right_inorder(inorder.begin()+index+1, inorder.end());
+
+        vector<int> left_preorder(preorder.begin()+1, preorder.begin()+index+1);
+        vector<int> right_preorder(preorder.begin()+index+1,preorder.end());
+
+        root->left = buildTree(left_preorder,left_inorder);
+        root->right = buildTree(right_preorder, right_inorder);
+        return root; 
+    }
+};
 ```
 
-Time Complexity: O()
+Time Complexity: O(n**2)
 
