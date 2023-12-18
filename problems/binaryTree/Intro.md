@@ -49,6 +49,11 @@ Array: [a,b,c,d,e,f,g]
 - Useful for finding the shortest path on unweighted graphs
 - Two categories: `visited` and `not visited`
 - starts at some arbitrary node and explores the neighbor nodes first, before moving to the next level neighbors
+
+**Note**
+- visit all nodes reachable from given node.
+- look at nodes reachable in _0 moves{s}, 1 move{Adj[s]}, 2 moves..._
+- careful to avoid duplicates 
   
 Depth-First Traversal 
 - use stack/or recursion data structure (iterative/recursive)
