@@ -87,10 +87,17 @@ Time Complexity: O(n)
 
 
 ### 112 & 113
-Link:[]()
+Link:[112 Path Sum](https://leetcode.com/problems/path-sum/) \
+     [113 Path Sum 2](https://leetcode.com/problems/path-sum-ii/)
 
 **Idea**
-
+- pass targetSum as `count` to our function, each time we encounter a node, we minus the node val
+- if it is the leaf node, and `count == 0`, means we have found the path, return true
+  - if we are asking to return all paths that sum is equal to target
+  - we have to init a path vector to store the node value, if it is leaf node, and count not equal to 0, we have to pop it, becasue it does not fullfill the requirement
+  - then we go back and do the same procedure. 
+- if not, we have to go back to the previous level, and make count = count + node val to stay unchanged
+- if not find any path, we return false  
 
 **Solution**
 
@@ -115,12 +122,96 @@ public:
     }
 };
 
-// back
+// backtrack
+class Solution {
+public:
+    bool traversal(TreeNode* cur, int count){
+
+        if(!cur->left && !cur->right && count == 0){
+            return true;
+        }
+        if(!cur->left && !cur->right) return false;
+
+        if(cur->left){
+            count-=cur->left->val;
+            if(traversal(cur->left,count)) return true;
+            count+=cur->left->val;
+        }
+
+
+        if(cur->right){
+            count -= cur->right->val;
+            // dont need visit all nodes, as long as we find result, return
+            if(traversal(cur->right, count)) return true;
+            //not find, back to the previous level, and make count == previous count, i.e, backtrack 
+            count+= cur->right->val;
+        }
+
+        return false;
+
+    }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(root==NULL) return false;
+        if(!root->left && !root->right && targetSum == root->val) return true;
+        return traversal(root,targetSum-root->val);
+    }
+};
+```
+
+
+``` ccp
+//113
+class Solution {
+public:
+    vector<vector<int>> result;
+    vector<int> path;
+    // do not need return value because we are visiting the entire tree
+    void traversal(TreeNode* cur, int count){
+        if(!cur->left && !cur->right && count==0){
+            result.push_back(path);
+            return;
+        }
+        // sum not equal to target and will return to the point where we call the function recursively 
+        if(!cur->left && !cur->right){
+            return;
+        }
+
+        if(cur->left){
+            path.push_back(cur->left->val);
+            count -= cur->left->val;
+            traversal(cur->left,count);
+            // if arrives here, means we did not find result, and will continue 
+            count+=cur->left->val;
+            path.pop_back();
+        }
+
+        if(cur->right){
+            path.push_back(cur->right->val);
+            count -= cur->right->val;
+            traversal(cur->right, count);
+            // not found
+            count+=cur->right->val;
+            path.pop_back();
+        }
+        
+    }
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        result.clear();
+        path.clear();
+        if(root==NULL) return result;
+
+        path.push_back(root->val);
+        traversal(root,targetSum-root->val);
+        return result;
+    }
+};
+
 
 ```
 
-Time Complexity: O()
+Time Complexity: O(n)
 
+In the worst case of 112, still have to visit all nodes. 
 
 
 ### 106 & 105
