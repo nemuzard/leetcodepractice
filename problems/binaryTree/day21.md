@@ -79,3 +79,39 @@ TreeNode* pre = NULL;
     }
 };
 ```
+
+### 236. Lowest Common Ancestor of a Binary Tree
+Link: [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/)
+
+**Idea**
+
+- Traverse left and right side
+- if root is null return null
+- if root->val equals to either p or q, we return root
+- if both left and right not null return root
+- if left is null and right not null, return right,
+- if left is not null and right is null, return left
+- if not found, return NULL
+
+**Solution**
+
+```ccp
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL) return root;
+
+        if(root->val == p->val || root->val == q->val) return root;
+        
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right,p,  q);
+
+        if(left && right) return root;
+
+        if(!left && right) return right;
+        if(left && !right) return left;
+
+        return NULL;
+    }
+};
+```
