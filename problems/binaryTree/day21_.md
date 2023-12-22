@@ -3,7 +3,9 @@
 Link: [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/description/)
 
 **Idea**
-
+- according to the characteristics of a BFS
+-  search left if smaller than cur->val, otherwise search right
+-  if found, return cur
 
 
 **Solution**
@@ -50,7 +52,8 @@ public:
 Link [701. Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/description/)
 
 **Idea**
-
+- add new node at leaf position
+- compare val and the val of each node to find where to add
 
 **Solution**
 
