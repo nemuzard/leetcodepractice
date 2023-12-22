@@ -77,3 +77,55 @@ public:
     }
 };
 ```
+### 450. Delete Node in a BST
+Link [450. Delete Node in a BST]()
+
+**Idea** \
+5 cases:
+1. not find, return null
+2. left and right are not null
+   - delete the node and put its left tree to  be the child of the lead node of the target node's leftmost child on the right subtree,
+4. left is not null and right is null
+5. right is not null and left is null
+6. left and right null
+
+**Solution**
+
+```ccp
+
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        // Tree is null or ..
+        if(root == NULL) return NULL;// target node not found
+
+        if(root->val == key) {
+            if(root->left == NULL && root->right == NULL){
+                delete root;
+                return nullptr; // this is return to the previous level of the tree
+            }else if(root->left && !root->right){
+                auto retNode = root->left;
+                delete root;
+                return retNode; // return left tree to the previous level
+            }else if(root->right && !root->left){
+                auto retNode = root->right;
+                delete root;
+                return retNode;
+            }else{
+                // left and right are not NULL 
+                TreeNode* cur = root->right; // we want to reach the leftmost node of the right subtree
+                while(cur->left!=NULL) cur = cur->left; // arrived
+                cur->left = root->left; // make cur be the new parent 
+                TreeNode* tmp = root; // save root node
+                root = root->right; // return old right child of the root as new root
+                delete tmp;
+                return root;
+            }
+
+        }
+        if(root->val > key) root->left = deleteNode(root->left,key);
+        if(root->val < key) root->right = deleteNode(root->right, key);
+        return root;
+    }
+};
+```
