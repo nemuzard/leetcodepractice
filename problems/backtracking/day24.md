@@ -32,4 +32,39 @@ void backtracking(some parameters...){
 - brutal force, use for loop
 - size of 2 then use 2 for loop, size of n , use n for loops,,
 - Use backtracking
+-  1. determine stop condition: if path.size == k, add path to result, and return
+   2. single level logic: use for loop to search, and perform backtracking
+   3. key is set i = startIndex in the for loop.
 
+ **Solution**
+ 
+```ccp
+class Solution {
+private:
+    vector<int> path;
+    vector<vector<int>> result;
+    void backtracking(int n,int k,int startIndex){
+        if(path.size()==k){
+            result.push_back(path);
+            return;
+        }
+
+        for(int i = startIndex;i<=n;i++){
+            path.push_back(i);
+            backtracking(n,k,i+1);
+            path.pop_back();
+        }
+
+    }
+
+public:
+    vector<vector<int>> combine(int n, int k) {
+        result.clear();
+        path.clear();
+        backtracking(n,k,1);
+        return result;
+    }
+};
+```
+
+This is a brutal force algorithm! Time complexity is O(C(n,k))
